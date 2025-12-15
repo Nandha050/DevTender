@@ -1,12 +1,7 @@
 const express = require('express');
 const app=express();
 const connectDB = require('./config/database.js');
-const User = require('./models/user.js');
-const {validatesignupdata}=require('./utils/validation.js');
 const cookieparser = require('cookie-parser');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const {userauth}=require("./middleware/auth.js");
 const port = 3000;
 
 app.use(express.json());
@@ -14,12 +9,14 @@ app.use(cookieparser());
 
 const authRouter=require('./routes/auth.js');
 const profileRouter=require('./routes/profile.js');
-const sendRequestRouter=require('./routes/request.js');
+const RequestRouter=require('./routes/request.js');
+const userRouter=require('./routes/user.js');
 
 
 app.use('/',authRouter);
 app.use('/',profileRouter);
-app.use('/',sendRequestRouter);
+app.use('/',RequestRouter);
+app.use('/',userRouter);
 
 // app.post('/signup',async(req,res)=>{
 //   const {firstName,lastName,gender,email,password}=req.body;
